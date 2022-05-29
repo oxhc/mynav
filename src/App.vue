@@ -70,7 +70,7 @@ export default {
       }
     },
     get_data(key) {
-      fetch("./data.json.pub").then(res => res.text()).then(jd => {
+      fetch(window.location + "data.json.pub").then(res => res.text()).then(jd => {
         let decrypted = ''
         try {
           decrypted = encryp_es6.decrypt(jd, md5(key), md5(md5(key)))
