@@ -176,11 +176,27 @@ export default {
 .container {
   display: flex;
   flex-wrap: wrap;
-  width: 80%;
   margin: 0 auto;
   justify-content: space-between;
   margin-bottom: 30px;
 }
+
+@media (min-width: 200px) {
+  .container {
+    width: 100%;
+  }
+}
+@media (min-width: 800px) {
+  .container {
+    width: 80%;
+  }
+}
+@media (min-width: 1000px) {
+  .container {
+    width: 70%;
+  }
+}
+
 .item {
   width: 80px;
   height: 80px;
