@@ -10,6 +10,16 @@ export default {
   name: 'App',
   components: {
     HelloWorld
+  },
+  data() {
+    return {
+      fetch_data: {}
+    }
+  },
+  created() {
+    fetch("/data.json").then(res => res.json()).then(jd => {
+      console.log(jd)
+    })
   }
 }
 </script>
