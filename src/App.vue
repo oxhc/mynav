@@ -18,11 +18,13 @@
       </el-space>
     </div>
 
-    <div >
+    <div style="margin: 0 10px;">
       <div v-loading="loading" class="container">
-        <Dir_web class="item" v-for="(nav, index) in nav_data.filter(nav => nav.type === 'dir')" :key="index" :dir="nav" @click="switch_folder(nav)">
-        </Dir_web>
-        <div v-for="(b, index) in block" class="block_item" :key="index"></div>
+        <el-space wrap style="justify-content: space-between;">
+          <Dir_web class="item" v-for="(nav, index) in nav_data.filter(nav => nav.type === 'dir')" :key="index" :dir="nav" @click="switch_folder(nav)">
+          </Dir_web>
+          <div v-for="(b, index) in block" class="block_item" :key="index"></div>
+        </el-space>
       </div>
 
       <div v-loading="loading" class="container">
@@ -193,7 +195,7 @@ export default {
 }
 @media (min-width: 1000px) {
   .container {
-    width: 70%;
+    width: 80%;
   }
 }
 
@@ -208,10 +210,10 @@ export default {
   /*min-width: 300px;*/
   width: 320px;
   height: 30px;
-  margin: 5px;
+  margin: 8px;
   padding: 5px;
   overflow: hidden;
-  margin-bottom: 15px;
+  flex-grow: 1;
 }
 
 .block_item {
@@ -219,6 +221,7 @@ export default {
   margin: 0 5px;
   padding: 0 5px;
   overflow: hidden;
+
 }
 
 .nav_block_item {
@@ -227,5 +230,6 @@ export default {
   margin: 0 5px;
   padding: 0 5px;
   overflow: hidden;
+  flex-grow: 1;
 }
 </style>
