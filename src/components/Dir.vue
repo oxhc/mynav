@@ -1,6 +1,6 @@
 <template>
 <div class="dir">
-  dir: {{dir.title}}
+{{dir.title}}
 </div>
 </template>
 

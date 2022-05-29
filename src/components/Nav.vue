@@ -1,6 +1,6 @@
 <template>
 <div class="nav" @click="open_nav">
-nav: {{nav.title}}
+{{nav.title}}
 </div>
 </template>
 

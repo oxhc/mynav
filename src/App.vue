@@ -3,8 +3,13 @@
     <div>
       <el-button @click="fresh" type="primary">刷新</el-button>
     </div>
+    <el-space spacer=" > ">
+      <el-tag style="cursor:pointer;" v-for="(nav, index) in nav_history" :key="index" @click="add_switch_folder(nav)">
+        {{ nav.title }}
+      </el-tag>
+    </el-space>
     <div class="container">
-      <Dir_web class="item" v-for="(nav, index) in nav_data.filter(nav => nav.type === 'dir')" :key="index" :dir="nav">
+      <Dir_web class="item" v-for="(nav, index) in nav_data.filter(nav => nav.type === 'dir')" :key="index" :dir="nav" @click="switch_folder(nav)">
       </Dir_web>
       <Nav_web class="item" v-for="(nav, index) in nav_data.filter(nav => nav.type === 'a')" :key="index" :nav="nav">
       </Nav_web>
@@ -43,13 +48,23 @@ export default {
     return {
       nav_data: [],
       pass: '',
-      showInputPassDialog: false
+      showInputPassDialog: false,
+      nav_history: [],
     }
   },
   methods: {
     fresh() {
+      this.nav_history = []
       localStorage.removeItem("nav_data")
       this.startup()
+    },
+    add_switch_folder(nav) {
+      this.nav_data = nav.itemList
+      this.nav_history = this.nav_history.slice(0, this.nav_history.findIndex((item) => item.title === nav.title)+1)
+    },
+    switch_folder(nav) {
+      this.nav_data = nav.itemList
+      this.nav_history.push(nav)
     },
     get_navData(success, err) {
       let nav_data = localStorage.getItem("nav_data")
@@ -83,6 +98,13 @@ export default {
         let ob = JSON.parse(decrypted)
         this.nav_data = ob.itemList[0].itemList
 
+        let nav = {
+          title: '/',
+          url: null,
+          itemList: this.nav_data
+        }
+        this.nav_history.push(nav)
+
         localStorage.setItem("nav_data", JSON.stringify(this.nav_data))
         localStorage.setItem("pass", key)
 
@@ -99,6 +121,12 @@ export default {
     startup() {
       this.get_navData((nav_data) => {
         this.nav_data = nav_data
+        let nav = {
+          title: '/',
+          url: null,
+          itemList: this.nav_data
+        }
+        this.nav_history.push(nav)
       }, () => {
         this.get_pass((pass) => {
           this.get_data(pass)
