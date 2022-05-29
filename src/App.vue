@@ -18,7 +18,7 @@
       </el-space>
     </div>
 
-    <div style="margin: 0 10px;">
+    <div style="margin: 0 3px;">
       <div v-loading="loading" class="container">
         <el-space wrap style="justify-content: space-between;">
           <Dir_web class="item" v-for="(nav, index) in nav_data.filter(nav => nav.type === 'dir')" :key="index" :dir="nav" @click="switch_folder(nav)">
@@ -180,7 +180,7 @@ export default {
   flex-wrap: wrap;
   margin: 0 auto;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: 12px;
 }
 
 @media (min-width: 200px) {
@@ -210,7 +210,7 @@ export default {
   /*min-width: 300px;*/
   width: 320px;
   height: 30px;
-  margin: 8px;
+  margin: 5px;
   padding: 5px;
   overflow: hidden;
   flex-grow: 1;
