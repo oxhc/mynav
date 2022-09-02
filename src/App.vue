@@ -42,7 +42,7 @@
       </el-form>
       <template #footer>
       <span class="dialog-footer">
-        <el-button type="primary" @click="comfirm_pass">
+        <el-button type="primary" @click="confirm_pass">
           Confirm
         </el-button>
       </span>
@@ -115,13 +115,20 @@ export default {
       }
     },
     get_data(key) {
-      fetch(window.location + "data.json.pub").then(res => res.text()).then(jd => {
+      let data_file_path = "" + window.location
+      if(data_file_path.endsWith("?")) {
+        data_file_path = data_file_path.substring(0, data_file_path.length - 1);
+      }
+      console.log("data path:", data_file_path)
+      fetch(data_file_path + "data.json.pub").then(res => res.text()).then(jd => {
         let decrypted = ''
         try {
           decrypted = encryp_es6.decrypt(jd, md5(key), md5(md5(key)))
         } catch (err) {
-          console.log(key)
           this.$message.error("密码错误, 请重试")
+          setTimeout(()=>{
+            this.input_pass()
+          }, 1000)
           return
         }
         this.showInputPassDialog = false
@@ -147,7 +154,7 @@ export default {
     input_pass() {
       this.showInputPassDialog = true
     },
-    comfirm_pass() {
+    confirm_pass() {
       this.get_data(this.pass)
     },
     startup() {
